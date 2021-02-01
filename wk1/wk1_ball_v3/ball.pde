@@ -3,6 +3,7 @@ class Ball{
   float velX,velY;
   
   float radius;
+
   color bCol;
   boolean bStroke;
   
@@ -10,7 +11,7 @@ class Ball{
     posX =_mposx;
     posY=_mposy;
     
-    velX=random(-4,4);
+    velX=random(-9,9);
     velY=random(-4,4);
     
     radius = random(60,120);
@@ -27,16 +28,30 @@ class Ball{
     }
     circle(posX,posY,radius*2);
   }
-  
+
   void move(){
     if(posX>= width - radius||posX<=radius){
       velX*=-1;
     }
-    if(posY>= height - radius||posY<=radius){
+    if(posY<=radius){
+      velY=0;
+    }
+    else{
+      velY-=0.06;
+    }
+    if(posY>= height - radius){
       velY*=-1;
     }
+    if(velY>0){
+      velY-=1;
+    }
+    
+    velX=velX/1.04;
+    
+    
     posX += velX;
     posY += velY;
     
+    println(velX,velY);
   }
 }
