@@ -39,6 +39,7 @@ class Ball{
     else{
       velY-=0.06;
     }
+    
     if(posY>= height - radius){
       velY*=-1;
     }
