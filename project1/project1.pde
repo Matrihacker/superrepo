@@ -65,7 +65,7 @@ void mtblm(){
       entity.grow();
       if(entity.seed<=0){
         for(int x=0; x<=plantsGrowRate;x++){
-          entities.add(new Entity(entity.x,entity.y,180,180,0));
+          entities.add(new Entity(entity.x,entity.y,140,140,0));
         }
         entity.seed=4000;
         break;
