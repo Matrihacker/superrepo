@@ -4,50 +4,72 @@ class Entity{
   int state;
   int replicator;
   int life;
+  int bliss;
+  int seed;
   int handle;
-  float k;
+  int killerHandle;
+  float rad;
   float speed;
   int i;
   ArrayList<Entity> entitielist;
+  float distCache;
 
   
-  Entity(int bitmapSizeX,int bitmapSizeY, int statei){
-    x=int(random(0,bitmapSizeX));
-    y=int(random(0,bitmapSizeY));
+  Entity(float mdpX,float mdpY,float rangeX,float rangeY, int statei){
+    x=int(random(mdpX-rangeX/2,mdpX+rangeX/2));
+    y=int(random(mdpY-rangeY/2,mdpY+rangeY/2));
     state=statei;
-    speed=0.001;
-
+    speed=1;
+    bliss=30;
+    life=500;
+    seed=int(random(500,12000));
   
   }
-              
-
+  
+  
+  void grow(){
+    seed-=2;
+  }
+  
   void startHunting(ArrayList<Entity> entities){
-    float distCache;
+    
     i=0;
     handle=0;
-    distCache=9999999;
-    for(Entity entity:entities){
-      if((entity.x!=x)&&(entity.y!=y)){
-        if(distCache < dist(x,y,entity.x,entity.y)){
-          distCache=dist(x,y,entity.x,entity.y;
+    distCache=9999;
+    for(Entity f:entities){
+      
+      if((f.x!=x)&&(f.y!=y)&&(f.state==0)){
+        
+        if(distCache > dist(x,y,f.x,f.y)){
+          distCache=dist(x,y,f.x,f.y);
           handle=i;
+          
         }
       }
       i++;
     }
     
-    k=(y-entities.get(handle).y)/(x-entities.get(handle).x);
+    rad=atan2((entities.get(handle).y-y),(entities.get(handle).x-x));
     
-    x+=speed;
-    y=k*x;
+    x+=cos(rad)*speed;
+    y+=sin(rad)*speed;
+    
+    life--;
     
     
-    for(Entity entity:entities){
-      if(dist(x,y,entity.x,entity.y)<=cellSize*2){
-        entities.remove(handle);
+    killerHandle=-1;
+    for(Entity f:entities){
+      if((f.x!=x)&&(f.y!=y)&&(f.state==0)){
+        if(dist(x,y,f.x,f.y)<=cellSize*2){
+          killerHandle=handle;
+          bliss-=5;
+          
+        }
       }
     }
     
   }
+  
+
   
 }
