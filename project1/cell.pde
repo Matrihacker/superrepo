@@ -15,15 +15,15 @@ class Entity{
   float distCache;
 
   
-  Entity(float mdpX,float mdpY,float rangeX,float rangeY, int statei){
+  Entity(float mdpX,float mdpY,float rangeX,float rangeY, int statei, int lifei){
     x=int(random(mdpX-rangeX/2,mdpX+rangeX/2));
     y=int(random(mdpY-rangeY/2,mdpY+rangeY/2));
     state=statei;
     speed=1;
     bliss=30;
-    life=500;
+    life=lifei;
     seed=int(random(500,12000));
-  
+    
   }
   
   
@@ -40,7 +40,7 @@ class Entity{
       
       if((f.x!=x)&&(f.y!=y)&&(f.state==0)){
         
-        if(distCache > dist(x,y,f.x,f.y)){
+        if(distCache >= dist(x,y,f.x,f.y)){
           distCache=dist(x,y,f.x,f.y);
           handle=i;
           
