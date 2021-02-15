@@ -1,4 +1,4 @@
-class Entity{
+class Hunter{
   float x;
   float y;
   int state;
@@ -11,32 +11,25 @@ class Entity{
   float rad;
   float speed;
   int i;
-  ArrayList<Entity> entitielist;
+  ArrayList<Plant> entitielist;
+
   float distCache;
 
   
-  Entity(float mdpX,float mdpY,float rangeX,float rangeY, int statei, int lifei){
+  Hunter(float mdpX,float mdpY,float rangeX,float rangeY, int lifei){
     x=int(random(mdpX-rangeX/2,mdpX+rangeX/2));
     y=int(random(mdpY-rangeY/2,mdpY+rangeY/2));
-    state=statei;
     speed=1;
     bliss=30;
     life=lifei;
-    seed=int(random(500,12000));
-    
   }
   
-  
-  void grow(){
-    seed-=2;
-  }
-  
-  void startHunting(ArrayList<Entity> entities){
+  void startHunting(ArrayList<Plant> entities){
     
     i=0;
     handle=0;
     distCache=9999;
-    for(Entity f:entities){
+    for(Plant f:entities){
       
       if((f.x!=x)&&(f.y!=y)&&(f.state==0)){
         
@@ -58,18 +51,19 @@ class Entity{
     
     
     killerHandle=-1;
-    for(Entity f:entities){
-      if((f.x!=x)&&(f.y!=y)&&(f.state==0)){
-        if(dist(x,y,f.x,f.y)<=cellSize*2){
+    for(int i = entities.size()-1;i>=0;i--){
+      if((entities.get(i).x!=x)&&(entities.get(i).y!=y)){
+        if(dist(x,y,entities.get(i).x,entities.get(i).y)<=cellSize*2){
           killerHandle=handle;
+          entities.remove(killerHandle);
           bliss-=5;
-          
+          break;
         }
       }
     }
     
   }
   
-
+  
   
 }
