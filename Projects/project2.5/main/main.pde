@@ -30,6 +30,7 @@ void setup(){
 }
 
 void draw(){
+  
   float pow=int(data[1])/1000;
   distance_grad=int(distance*pow(10,pow))/pow(10,pow);
   println(distance_grad,distance,pow);
@@ -39,13 +40,9 @@ void draw(){
   }
   sine.freq(freq);
   
-  
+
   fill(0,255,0);
   stroke(0,255,0);
-  
-
-  
-  
   
   windowAdjustCoord=height-(distance_grad*(height/4))+100;
   y=windowAdjustCoord;
